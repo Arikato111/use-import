@@ -8,7 +8,7 @@ function import($dir, $fileName = false)
 {
     try {
         if ($fileName) {
-            $dir = str_replace('./', "$dir/", $fileName);
+            $dir = $dir . '/' . $fileName;
             if (strpos($dir, '.css')) {
                 if (!in_array($dir, $GLOBALS['style'])) {
                     array_push($GLOBALS['style'], $dir);
