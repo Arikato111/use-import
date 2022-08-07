@@ -4,11 +4,11 @@
     * This source code is licensed under the MIT license found in the
     * LICENSE file in the root directory of this source tree.
 */
-function import($dir, $fileName = false)
+function import($dir, $fileDir = false)
 {
     try {
-        if ($fileName) {
-            $dir = $dir . '/' . $fileName;
+        if ($fileDir) {
+            $dir = $dir . '/' . $fileDir;
             if (strpos($dir, '.css')) {
                 if (!in_array($dir, $GLOBALS['style'])) {
                     array_push($GLOBALS['style'], $dir);
