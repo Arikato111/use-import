@@ -4,23 +4,38 @@
     * This source code is licensed under the MIT license found in the
     * LICENSE file in the root directory of this source tree.
 */
-function import($dir)
+function import($dir, $fileName = false)
 {
     try {
-        if (strpos($dir, '.css')) {
-            if(!in_array($dir, $GLOBALS['style'])) {
-                array_push($GLOBALS['style'], $dir);
+        if ($fileName) {
+            $dir = str_replace('./', "$dir/", $fileName);
+            if (strpos($dir, '.css')) {
+                if (!in_array($dir, $GLOBALS['style'])) {
+                    array_push($GLOBALS['style'], $dir);
+                }
+            } elseif (strpos($dir, '.php') !== false) {
+                $comp = (function () use ($dir) {
+                    require($dir . '.php');
+                    return $export;
+                })();
+                return $comp;
             }
-        } elseif (strpos($dir, './') !== false) {
-            $comp = (function () use ($dir) {
-                require($dir . '.php');
-                return $export;
-            })();
-            return $comp;
-        } elseif (strpos($dir, '/') !== false) {
-            return require('./modules/' . $dir . '.php');
         } else {
-            return require('./modules/' . $dir . '/main.m.php');
+            if (strpos($dir, '.css')) {
+                if (!in_array($dir, $GLOBALS['style'])) {
+                    array_push($GLOBALS['style'], $dir);
+                }
+            } elseif (strpos($dir, './') !== false) {
+                $comp = (function () use ($dir) {
+                    require($dir . '.php');
+                    return $export;
+                })();
+                return $comp;
+            } elseif (strpos($dir, '/') !== false) {
+                return require('./modules/' . $dir . '.php');
+            } else {
+                return require('./modules/' . $dir . '/main.m.php');
+            }
         }
     } catch (Error $err) {
         $message = 'can not import from ( \'' . $dir . '\' ) |  Please check your directory';
