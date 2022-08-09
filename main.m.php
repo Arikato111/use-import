@@ -60,7 +60,6 @@ function import($dir, $fileDir = false)
     }
 }
 
-$GLOBALS['title'] = 'title';
 $GLOBALS['style'] = [];
 $showStyle = function () {
     if (sizeof($GLOBALS['style']) > 0) {
