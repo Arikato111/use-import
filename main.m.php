@@ -16,7 +16,7 @@ function import($dir, $fileDir = false)
             } elseif (strpos($dir, '.php') !== false) {
                 $comp = (function () use ($dir) {
                     require($dir);
-                    return $export;
+                    if($export ?? false) return $export;
                 })();
                 return $comp;
             }
