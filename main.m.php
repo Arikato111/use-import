@@ -28,7 +28,7 @@ function import($dir, $fileDir = false)
             } elseif (strpos($dir, './') !== false) {
                 $comp = (function () use ($dir) {
                     require($dir . '.php');
-                    return $export;
+                    if($export ?? false) return $export;
                 })();
                 return $comp;
             } elseif (strpos($dir, '/') !== false) {
