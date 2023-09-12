@@ -32,9 +32,9 @@ function import($dir, $fileDir = false)
                 })();
                 return $comp;
             } elseif (strpos($dir, '/') !== false) {
-                return require('./modules/' . $dir . '.php');
+                return require('../modules/' . $dir . '.php');
             } else {
-                return require('./modules/' . $dir . '/main.m.php');
+                return require('../modules/' . $dir . '/main.m.php');
             }
         }
     } catch (Error $err) {
